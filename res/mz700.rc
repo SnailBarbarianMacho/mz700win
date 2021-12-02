@@ -1,0 +1,295 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resrc1.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "windows.h"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+#include "resource.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// “ú–{Œê (“ú–{) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
+LANGUAGE LANG_JAPANESE, SUBLANG_DEFAULT
+#pragma code_page(932)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+APPICON                 ICON                    "mzship.ico"
+MZICON                  ICON                    "mz.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Cursor
+//
+
+IDC_CURHAND             CURSOR                  "hand.cur"
+IDC_CURSOR1             CURSOR                  "cursor1.cur"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+APPMENU ACCELERATORS
+BEGIN
+    VK_F11,         MENU_PCG700,            VIRTKEY, NOINVERT
+    VK_F12,         MENU_RESET,             VIRTKEY, NOINVERT
+    VK_F6,          MENU_DB_TRACE,          VIRTKEY, NOINVERT
+    VK_RETURN,      MENU_FULLSCREEN,        VIRTKEY, ALT, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+APPMENU MENU
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&Open File",                  MENU_OPEN
+        MENUITEM "Set &QD",                     MENU_SETQD
+        MENUITEM "Eject QD",                    MENU_EJECTQD
+        MENUITEM SEPARATOR
+        MENUITEM "Set &Load Tape",              MENU_SET
+        MENUITEM "Set &Save Tape",              MENU_TAPESAVE
+        MENUITEM SEPARATOR
+        MENUITEM "Load RamFile",                MENU_LOADRAMFILE
+        MENUITEM "Save RamFile",                MENU_SAVERAMFILE
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit\tAlt+F4",               MENU_EXIT
+    END
+    POPUP "&Setting"
+    BEGIN
+        MENUITEM "MONITOR &Rom",                MENU_ROM
+        MENUITEM "Speed Control",               MENU_SPEED
+        POPUP "Screen Size"
+        BEGIN
+            MENUITEM "1:1",                         MENU_SCREEN_1_1
+            MENUITEM "2:2",                         MENU_SCREEN_2_2
+            MENUITEM "3:3",                         MENU_SCREEN_3_3
+            MENUITEM "4:4",                         MENU_SCREEN_4_4
+        END
+        POPUP "Screen Refresh"
+        BEGIN
+            MENUITEM "Every Frame",                 MENU_REFRESH_EVERY
+            MENUITEM "Every 2nd Frame",             MENU_REFRESH_2
+            MENUITEM "Every 3rd Frame",             MENU_REFRESH_3
+            MENUITEM "Every 4th Frame",             MENU_REFRESH_4
+        END
+        POPUP "Font Set"
+        BEGIN
+            MENUITEM "Europe",                      MENU_FONT_EUROPE
+            MENUITEM "Japan",                       MENU_FONT_JAPAN
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "Full Screen\tAlt+Enter",      MENU_FULLSCREEN
+    END
+    POPUP "&Keyboard"
+    BEGIN
+        MENUITEM SEPARATOR
+    END
+    POPUP "&Hardware"
+    BEGIN
+        MENUITEM "&PCG700-Sw\tF11",             MENU_PCG700
+        MENUITEM SEPARATOR
+        MENUITEM "&Load State...",              MENU_LOAD_STATE
+        MENUITEM "&Save State...",              MENU_SAVE_STATE
+        MENUITEM SEPARATOR
+        MENUITEM "&Reset\tF12",                 MENU_RESET
+    END
+    POPUP "&About"
+    BEGIN
+        MENUITEM "&About...",                   MENU_ABOUT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VERSIONINFO_1 VERSIONINFO
+ FILEVERSION 0,5,6,0
+ PRODUCTVERSION 0,5,6,0
+ FILEFLAGSMASK 0x0L
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904e4"
+        BEGIN
+            VALUE "CompanyName", "-"
+            VALUE "FileDescription", "MZ-700/1500 Emulator For Win32"
+            VALUE "FileVersion", "0.5.6.0"
+            VALUE "InternalName", "mz700win"
+            VALUE "LegalCopyright", "(C) 1998-2009 Marukun 2009-2016 Marukun/Youkan"
+            VALUE "LegalTrademarks", "-"
+            VALUE "OriginalFilename", "MZ700WIN.EXE"
+            VALUE "ProductName", "MZ700WIN"
+            VALUE "ProductVersion", "0.5.6.0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1252
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DIALOG1 DIALOGEX 0, 0, 175, 123
+STYLE DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_DLGMODALFRAME
+CAPTION "About MZ700WIN..."
+FONT 9, "‚l‚r ‚oƒSƒVƒbƒN", 0, 0, 0x1
+BEGIN
+    PUSHBUTTON      "OK",IDOK,70,105,36,14,BS_CENTER | BS_VCENTER
+    LTEXT           "MZ-700 Emulator 'MZ700WIN'",-1,32,12,92,8,NOT WS_GROUP
+    ICON            "AppIcon",-1,8,12,20,20
+    LTEXT           "Version 0.56",-1,32,24,100,8,NOT WS_GROUP
+    CONTROL         "",-1,"Static",SS_ETCHEDHORZ,28,36,140,1
+    LTEXT           "Copyright (C) 1998-2016 Marukun/Youkan.",-1,32,39,139,8,NOT WS_GROUP
+    LTEXT           "Based on Russell Marks's 'mz700em'.",-1,32,49,124,8,NOT WS_GROUP
+    LTEXT           "Z80 emulation from 'Z80em'",-1,32,62,140,8,NOT WS_GROUP
+    LTEXT           "E-Mail : mz-memories@retropc.net",IDC_MAILTO,34,94,101,8,SS_NOTIFY | NOT WS_GROUP
+    LTEXT           "Copyright (C) Marcel de Kogel 1996,1997",-1,32,71,132,8,NOT WS_GROUP
+    LTEXT           "http://retropc.net/mz-memories/mz700/",IDC_WWW,35,83,119,8,SS_NOTIFY
+END
+
+IDD_ROMDIALOG DIALOG 0, 0, 162, 91
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Monitor ROM Setting"
+FONT 9, "‚l‚r ‚oƒSƒVƒbƒN"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,105,44,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,105,68,50,14
+    COMBOBOX        IDC_COMBO_ROM,7,18,148,74,CBS_DROPDOWNLIST | CBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Machine Mode",IDC_STATIC,7,34,93,50
+    CONTROL         "MZ-700",IDC_RADIO_700,"Button",BS_AUTORADIOBUTTON,34,50,39,10
+    CONTROL         "MZ-1500",IDC_RADIO_1500,"Button",BS_AUTORADIOBUTTON,34,65,42,10
+END
+
+IDD_SPDDIALOG DIALOGEX 0, 0, 165, 70
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Speed Control"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,14,49,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,97,49,50,14
+    CONTROL         "",IDC_SLIDER1,"msctls_trackbar32",TBS_AUTOTICKS | TBS_BOTH | WS_TABSTOP,15,25,128,15
+    LTEXT           "Speed : 100%",IDC_STATIC_SPD,57,11,47,8
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resrc1.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""windows.h""\r\n"
+    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""resource.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_DIALOG1, DIALOG
+    BEGIN
+        RIGHTMARGIN, 173
+        BOTTOMMARGIN, 119
+    END
+
+    IDD_ROMDIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 155
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 84
+    END
+
+    IDD_SPDDIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 158
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 63
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+TOOLBAR                 BITMAP                  "toolbar.bmp"
+#endif    // “ú–{Œê (“ú–{) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

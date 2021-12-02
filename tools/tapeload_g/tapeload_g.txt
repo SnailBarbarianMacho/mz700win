@@ -1,0 +1,23 @@
+tapeload.exe for Win32 Version 0.14 Programmed by T.Maruyama
+modified G01 by GORRY.
+--
+
+
+■オリジナル
+
+http://www.retropc.net/mz-memories/mz700/
+tapeload_014.zip
+
+
+■変更点
+
+・サンプリングレート22050/44100/48000Hzのいずれでも読めるようにした。
+・ビット判定アルゴリズム変更。
+  - 変更前：立ち上がりから320μs後の状態で判定
+  - 変更後：立ち上がりからの１周期にかかる時間で判定
+・読み込みカウンタ表示。
+
+
+--
+Hiroaki GOTO as GORRY : 後藤 浩昭
+E-Mail/Twitter ID: gorry@hauN.org/@gorry5

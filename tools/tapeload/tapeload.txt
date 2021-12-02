@@ -1,0 +1,134 @@
+tapeload.exe ver 0.14 Copyright (c) 1999-2000,2009 Takeshi Maruyama
+
+Based on Russel Marks's mzget - read MZ700 tape data
+outputs header to `header.dat', and data to `out.dat'.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or (at
+your option) any later version.
+
+This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+
+Hardware Requirements
+---------------------
+Sound Card (ex. SoundBlaster-16)
+32 Megabytes of memory
+
+
+Software Requirements
+---------------------
+Windows XP/Vista (32bit)
+
+What is this?
+-------------
+This program loads the tape of MZ700/800 from the WAV file recorded by
+22050Hz monophonic recording, or a sound card.
+
+
+How to use
+----------
+This program is running in a DOS box under Windows.
+
+usage:tapeload [options] <Wavefile[.wav]>
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+When there is no specification of a file name, it loads from a LINE-IN jack.
+To use it, you must have a sound card with sampling abilities
+(ex. SoundBlaster16), a tape with MZ files and a cassette player.
+
+First, connect the MIC jack of the sound card to the OUT jack of
+the cassette player with an audio cable, then insert a tape into
+the player.
+
+Next, in the DOS box, execute "tapeload.exe".
+It will print "Now Searching...."
+You can cancel anytime by pressing the [Esc] key.
+
+Next, push the play button on the cassette player.
+
+Next, wait a moment.
+It will print "done gapck", "done tmark" and "FOUND filename".
+
+Next, when the file is loaded, it will print "ok!".
+MZ data files are created in your current directory.
+"header.dat" is the header of the MZ data. It includes the file name
+and address information. Its size is 128 bytes.
+
+"out.dat" is the actual MZ data in raw format.
+
+To use these files on mz700win, enter the following at the DOS prompt:
+copy /b header.dat+out.dat filename.mzt [ENTER]
+
+filename.mzt is executable by mz700win.
+
+
+Running S-BASIC
+---------------
+In old version of MZ700WIN, the *.mzt (or *.m12, These are same format) files
+could't load on S-BASIC. Because in order to implement load emulation, 
+MZ700WIN patches ROM-Monitor program.
+While running S-BASIC, Memory address $0000-$0FFF is not Monitor-ROM.
+It is RAM. Patched load-routine is not used. Therefore the *.mzt files couldn't
+be loaded on S-BASIC.
+
+Now, You can load the program files of S-BASIC.
+Patch your *.mzt file of S-BASIC.
+
+00000040: 50 41 54 3A 21 12 0C ED F4 03 ED F4 04 ED F4 01 
+00000050: ED F4 02 FF FF 00 00 00 00 00 00 00 00 00 00 00 
+
+When you use this patched file, You can load the program files on S-BASIC.
+
+
+----
+Supposing WAV file name was specified, tapeload will perform reading from
+the WAV file. 
+It must be recorded by 22050Hz monophonic 8bit PCM.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+----
+If you don't succeed, try these options.
+
+ex.)tapeload -r -d16
+
+    -l[e|j]The main messages are outputted in
+           English (e) / Japanese (j)
+    -mN    Set wave buffer size to N megabytes (default:N=16/range:1-32)
+    -r     The phase of voice data is reversed.
+    -dN    Adjust input level (default:N=32/range:1-127)
+    -wN    Data reading unit time (default:N=7/range:1-16)
+
+    -b     Display bit data
+    -v     Display read code
+
+
+History
+-------
+2009-05-30	Version 0.14
+    Fixed freeze bug. (perhaps)
+
+
+Special thanks to
+-----------------
+Karl-Heintz Mau/Germany		e-mail:karl.mau@Essen.netsurf.de
+ He tested my emulator kindly and sent me it's debug reports and
+ some technical infomation.
+
+Sascha Hoogen/Germany		e-mail:shoogen@zock.com
+ He corrected my terrible English documents kindly.
+
+
+Address
+-------
+E-MAIL: mz-memories@retropc.net
+
+MZ700Win Page: (Sorry, Written in Japanese language only.)
+	http://retropc.net/mz-memories/mz700/

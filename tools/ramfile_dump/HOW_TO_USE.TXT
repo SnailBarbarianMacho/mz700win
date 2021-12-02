@@ -1,0 +1,41 @@
+■RAMFILE DUMPER for MZ-1500（実機）
+
+▼概要
+　ＲＡＭファイルの内容を、メインＲＡＭに転送します。
+
+▼動作環境
+　MZ-1500実機+RAMファイル実機
+
+▼準備
+　ramdump.MZT を、mzt2wavでテープに持って行き、適宜ＱＤに転送して下さい。
+　
+▼ＲＡＭファイルの吸い出し方
+・BASIC MZ-5Z001を立ち上げて、
+  INIT "RAM:$FFFF"
+  LOAD ALL
+　を行う。
+
+・「Ｍ」キーを押しながら9Z-502Mを立ち上げ、実機に転送したramdump.MZTを実行。
+
+転送の詳細は添付画像
+
+howtouse_1.png
+howtouse_2.png
+
+参照してください。
+
+転送したデータをテープにセーブし、ＰＣ向けtapeloadでイメージ化。
+$8000ずつ転送する都合上、２つの生バイナリをくっつけて64kファイルにする。
+
+tapeload
+ok!
+copy out.dat bank0
+
+tapeload
+ok!
+copy out.dat bank1
+
+copy /b bank0+bank1 test.mzr
+
+MZ700WINを出来たMZRファイルを開くと、RAMファイルに転送される。
+
