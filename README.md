@@ -37,7 +37,7 @@
 # history
 
 ```
-0.57(Marukun)      0.58(Snail)
+0.57(Marukun)      0.58 beta1(Snail)
   |                   |
   :                   |
 0.56a(Youkan)         |
