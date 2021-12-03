@@ -1,0 +1,262 @@
+mz700win - an MZ-700 emulator 'mz700win.exe' for Win32 version 0.53 (maintenance)
+
+(C) 1998-2000 Takeshi Maruyama (marukun)
+I can't write English well. Please forgive me my poor English.
+
+mz700win by Takeshi Maruyama, based on Russell Marks's 'mz700em'.
+MZ700 emulator 'mz700em' for VGA PCs running Linux (C) 1996 Russell Marks.
+
+In Primary version, I ported Linux version to Win32 directly. But it was slow.
+This version of MZ700WIN was rewritten newly by me.
+
+Z80 emulation from 'Z80em' Copyright (C) Marcel de Kogel 1996,1997
+
+
+-------------
+You have regrettable information. I must decide the MZ700WIN project will 
+discontinue until October 2000. I think that I can't get enough time for
+the mz700win project. But my mz700win page will continue.
+
+
+What's New
+----------
+*Version 0.53
+This is maintenance Release.
+Speed Control added. See Setting menu.
+
+*Version 0.52
+This is maintenance Release.....
+The folder position of ROM image files have been changed. 
+You must move ROM images into the folder named 'ROMS' and rename your
+'MZ700.ROM' to '1Z013.ROM'.
+
+Supported Original Monitor-ROM named 'MZ-NEW MONITOR'. But it is for 
+*Japanese* version of MZ700/80K/C/1200 Only.
+
+'MZ-NEW MONITOR'
+Copyright 1982,1983,2000 Musashino Microcomputer Club.
+
+
+*Version 0.51a
+This is maintenance Release.....
+Fixed some bugs.
+
+
+*Version 0.51
+This is maintenance Release.....
+Now, You can load the program files of S-BASIC. (see tapeload.txt)
+
+
+*Version 0.50
+Added Save/Load States.
+
+
+Hardware Requirements
+---------------------
+A Pentium 100 or later
+Sound Card (ex.SoundBlaster-16)
+
+
+
+Software Requirements
+---------------------
+Windows95,98,98 Second Edition,Me
+DirectX2 or later
+Windows NT 4.0
+Windows 2000 Profesional
+Windows XP
+
+
+Supported ROM image file
+-------------------------
+ ROMS\MZ700.ROM  (4096 Bytes)  compatible for old version
+ ROMS\1Z009.ROM  (4096 Bytes)  1Z-009A/B (for Japanese MZ700)
+ ROMS\MZ1500.ROM (10240 Bytes) 9Z-502M (for Japanese MZ1500)
+ ROMS\1Z013.ROM  (4096 Bytes)  1Z-013A/B (for Europian MZ700)
+ ROMS\SP1002.ROM (4096 Bytes)  SP-1002 (for Japanese MZ80K/C/1200)
+ ROMS\NEWMON7.ROM(4096 Bytes)  MZ NEW-MONITOR (for Japanese MZ700)
+ ROMS\NEWMON.ROM (4096 Bytes)  MZ NEW-MONITOR (for Japanese MZ80K/C/1200)
+--------------------------------------------------------------------------
+
+* Monitor-ROM	       1Z013.ROM (4096Bytes)
+
+If you have a 'MZ700.ROM', You must move ROM images into the folder named
+'ROMS' and rename your 'MZ700.ROM' to '1Z013.ROM'.
+
+'1Z013.ROM' is the image file of ROM-Monitor of MZ700. In order to use
+MZ700 emulator, You must have *REAL* MZ700 machine. And you must dump
+ROM Images by yourself.
+
+Do you have *REAL* MZ700 machine?
+
+If you have a MZ700 machine, Save memory area 0000h-0FFFh to cassete tape,
+And use 'tapeload.exe'. (It was included in the archive of MZ700WIN) 
+
+If succeed, The file named 'out.dat' is created.
+Its size is 4096 bytes. Please rename it 'out.dat' to '1Z013.ROM'.
+
+
+You can work the MZ700WIN emulator with the MZ800 rom.
+But to work it, You need to patch your MZ800 rom.
+
+Patch MZ800 ROM with the binary editor:
+
+0001 : 00 -> 4A
+0002 : E8 -> 00
+
+
+
+* CG-ROM             MZ700FON.DAT or MZ700FON.JP (4096bytes)
+
+'MZ700FON.DAT' is the image file of Character-ROM.
+In order to get it, You can use the tool called 'mkfnt.exe' and
+Its data file.
+
+This data file 'MZ700FON.JP' is the character font data. This is not from
+the MZ700, but put together by hand.
+It is Japanese font file.
+
+
+
+Options
+-------
+    /s    No Sound
+    /c    Change background-color of the ROM-Monitor screen.
+    for example: /c40
+
+
+Menu
+----
+
+File ---------
+
+ Open           Select tape images (*.mzt or *.m12) and load.
+
+ Set Load Tape  Set tape images for loading.
+                In order to execute tape image, Select this menu and use
+                MONITOR-COMMAND 'L'.
+
+ Set Save Tape  Set tape images for saving. Default file name is '$cmt$.mzt'.
+                It is used by ROM MONITOR ENTRY EMULATION:
+                WRINF($0021),WRDATA($0024).
+
+ Exit           End mz700win.
+
+
+Setting --------
+
+  Monitor ROM   You can switch the version of ROM-Monitor.
+  
+  Speed Control You can adjust CPU Speed. (10-100%)
+
+
+ Size ---------
+
+      1:1	Normal size window.
+
+      2:2	Double size window.
+
+ Refresh ------
+
+      Every Frame       Screen is always updated.
+
+      Enery 2nd Frame   Screen is updated every 2nd.
+
+      Enery 3rd Frame   Screen is updated every 3rd.
+
+      Enery 4th Frame   Screen is updated every 4th.
+
+ 
+      Full Screen      Change full-screen mode
+                       You also can do it by [Alt]+-[Enter] Key.
+
+
+Keyboard --------
+
+      You can select your keyboard type.
+
+HardWare -------
+
+      PCG700-Sw(F11)    PCG700 mode switch.
+
+      Load State        Load machine state.
+
+      Save State        Save machine state.
+
+      Reset(F12)        Reset MZ700.
+
+
+About ----------
+
+      view version information
+
+
+Keyboard Layout
+---------------
+
+Keyboard               Emulated as
+--------               -----------
+PAGE UP                graph
+TAB                    alpha
+PAGE DOWN              _ (key above CR on the MZ)
+BACKSPACE              break
+F7                     @
+F8                     ?
+
+
+Keyboard definition file
+------------------------
+This version can define keyboard matrix and select keyboard matrix
+from command menu.	
+The keyboard matrix definition file is 'key.def'.
+
+For example:
+
+[106/109 JP Type]
+// Matrix = AT Key Code
+
+// *1*
+00 = 0d         // bit0:[CR] = VK_RETURN
+01 = ':'        // bit1:[:] = ':'
+02 = ';'        // bit2:[;] = ';'
+04 = 09         // bit4:[Tab] = Alphabet
+05 = 78         // bit5:[=] = F9
+06 = 21         // bit6:[GRAPH] = Page Up
+07 = 22         // bit7:[KANA] = Page Down
+
+--------------------
+
+You can add section by [.....]
+04 = 09         // bit4:[Tab] = Alphabet
+||    |
+||    +--- AT Key code
+|+-------- bit4:Keyboard matrix of MZ700 (rows)
++--------- Keyboard matrix of MZ700 (columns)
+
+Left value is hex only. Right value is hex or letter.
+
+
+
+Special thanks to
+-----------------
+Karl-Heintz Mau/Germany		e-mail:karl.mau@Essen.netsurf.de
+ He tested my emulator kindly and sent me it's debug reports and
+ some technical infomation.
+
+
+
+
+Address
+-------
+E-MAIL: mz-memories@retropc.net
+
+Web Page: (Sorry, Written in Japanese language only.)
+http://retropc.net/mz-memories/
+
+MZ700Win Page: (Sorry, Written in Japanese language only.)
+http://retropc.net/mz-memories/mz700/
+
+
+--------------
+Please do not ask me about ROM/TAPE images.
+If I received e-mail about these, I will ignore.....

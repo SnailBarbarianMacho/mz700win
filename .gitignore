@@ -10,6 +10,8 @@ Release/*.recipe
 Release/*.FileListAbsolute.txt
 Release/ROMS/*.ROM
 *.user
+*.aps
+*.*~
 .vs/
 src_backup/
 debug.log

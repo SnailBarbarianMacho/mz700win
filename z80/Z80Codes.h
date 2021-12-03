@@ -148,13 +148,18 @@
 
 #define M_INC(Reg)                                      \
  ++Reg;                                                 \
- R.AF.B.l=(R.AF.B.l&C_FLAG)|ZSTable[Reg]|               \
-          ((Reg==0x80)?V_FLAG:0)|((Reg&0x0F)?0:H_FLAG)
+ R.AF.B.l = (R.AF.B.l & C_FLAG) |                       \
+          ZSTable[Reg] |                                \
+          ((Reg == 0x80) ? V_FLAG : 0) |                \
+          ((Reg & 0x0F) ? 0 : H_FLAG)
 
 #define M_DEC(Reg)                                      \
- R.AF.B.l=(R.AF.B.l&C_FLAG)|N_FLAG|                     \
-          ((Reg==0x80)?V_FLAG:0)|((Reg&0x0F)?0:H_FLAG); \
- R.AF.B.l|=ZSTable[--Reg]
+ --Reg;                                                 \
+ R.AF.B.l = (R.AF.B.l & C_FLAG) |                       \
+          N_FLAG |                                      \
+          ((Reg == 0x80) ? V_FLAG : 0) |                \
+          ((Reg & 0x0F) ? 0 : H_FLAG);                  \
+ R.AF.B.l |= ZSTable[Reg]
 
 // A = B + C とすると, (C ^ B の MSB == 0) かつ (C ^ A の MSB == 1) の場合, オーバーフローです
 // A = B - C とすると, (C ^ B の MSB == 1) かつ (C ^ A の MSB == 0) の場合, オーバーフローです
@@ -164,7 +169,7 @@
  int q = R.AF.B.h + Reg;                                \
  R.AF.B.l = ZSTable[q & 255] | ((q & 256) >> 8)|        \
           ((R.AF.B.h ^ q ^ Reg) & H_FLAG) |             \
-          (((Reg ^ R.AF.B.h ^ 0x80)&(Reg ^ q) & 0x80) >> 5);\
+          (((Reg ^ R.AF.B.h ^ 0x80) & (Reg ^ q) & 0x80) >> 5);\
  R.AF.B.h = q;                                          \
 }
 
