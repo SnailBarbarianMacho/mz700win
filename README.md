@@ -12,10 +12,10 @@
 
 - バイナリ, README.txt は, Release フォルダにあります<br>
   古いドキュメントもそのまま掲載してます. 使用方法はそちらをご覧ください.<br>
-  2021.12.04 現在, バイナリが Windwos Defender にひっかかる現象があります. なんで?<br>
+  バイナリは zip で圧縮してますので解凍してお使いください<br>
   Binaries and README.txt are in the Release folder.<br>
   The old document is also posted as it is. Please see there for how to use it.<br>
-  As of 2021.12.04, there is a phenomenon that binaries get stuck in Windwos Defender. Why?
+  The binary is compressed with zip, so please decompress it before use.
 
 - その他のツール(ramfile_dump, tapeload, tapeload_g) は, まとめて tools/ に移動しました<br>
   Other tools (ramfile_dump, tapeload, tapeload_g) have been moved together to tools/
