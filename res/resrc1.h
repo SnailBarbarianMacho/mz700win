@@ -1,8 +1,9 @@
 //{{NO_DEPENDENCIES}}
-// Microsoft Visual C++ generated include file.
-// Used by mz700.rc
+// Microsoft Visual C++ で生成されたインクルード ファイル。
+// mz700.rc で使用
 //
 #define IDC_CURSOR1                     101
+#define IDC_TXT_VERSION                 15653
 
 // Next default values for new objects
 // 
@@ -11,7 +12,7 @@
 #define _APS_NO_MFC                     1
 #define _APS_NEXT_RESOURCE_VALUE        105
 #define _APS_NEXT_COMMAND_VALUE         40003
-#define _APS_NEXT_CONTROL_VALUE         1005
+#define _APS_NEXT_CONTROL_VALUE         1006
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

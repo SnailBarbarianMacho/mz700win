@@ -13,7 +13,7 @@ Coded by Marukun, Youkan, Snail
 
 
 
-2021.12.03 0.58 beta1(Snail)
+2021.12.04 0.58 beta1(Snail)
 - Based on 0.56
 - Z80 dec, add, adc, sub, sbc 命令のフラグの挙動を修正<br>
   Fixed the flag behavior of Z80 dec, add, adc, sub, sbc instruction
