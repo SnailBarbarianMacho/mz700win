@@ -1,0 +1,175 @@
+<HTML>
+<HEAD>
+   <TITLE>MZ700WIN 活用例</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#EF0F2F" VLINK="#9F000F" ALINK="#FF8F4F">
+
+<H2>MZ700WIN 活用例</H2>
+
+<CENTER><FONT SIZE=+0>Last update: 2001/03/02</FONT></CENTER>
+
+<p>
+
+<TABLE BORDER=1 width=100%>
+<TR>
+<TH BGCOLOR=00FF99>更新日時</TH><TH BGCOLOR=00FF99>内容</TH>
+</TR>
+<TR>
+<TD bgcolor=eeeeee>01/03/02</TD>
+<TD bgcolor=eec0ee><a href="#ocr">OCRソフトを使ってダンプリストを入力してみる方法</a></TD>
+</TR>
+<TR>
+<TD bgcolor=eeeeee>98/08/09</TD>
+<TD bgcolor=eec0ee><a href="#qdcopy">ＱＤファイル名にコントロールコードが含まれている場合の読み込み方法</a></TD>
+</TR>
+<TR>
+<TD bgcolor=eeeeee>98/07/12</TD>
+<TD bgcolor=eec0ee><a href="#poibos">”ポイボス　Part1 脱出”のマシン語ファイル化方法</a></TD>
+</TR>
+<TR>
+<TD bgcolor=eeeeee>98/07/12</TD>
+<TD bgcolor=eec0ee><a href="#hubas_save">700用HuBASICプログラムのマシン語ファイル化方法</a></TD>
+</TR>
+<TR>
+<TD bgcolor=eeeeee>98/07/12</TD>
+<TD bgcolor=eec0ee><a href="#furuconv">古旗一浩氏が公開されている700用バイナリデータを<br>mz700win用に変換するツール</A></TD>
+</TR>
+
+</TABLE>
+
+<P><B><A HREF="http://retropc.net/mz-memories/mz700/">＜＜＜＜MZ700WINページに戻る</A></B>
+
+<hr>
+<a name="ocr"></a>
+<H2>OCRソフトを使ってダンプリストを入力してみる方法</H2>
+
+<a href="http://marus.ekakisan.net/omake/index.html">Ugeo</a>さん提供の情報です。<p>
+　詳しい手順は以下のURLをご参照ください。<br>
+　<a href="http://marus.ekakisan.net/omake/ocr.html" target=_blank>
+http://marus.ekakisan.net/omake/ocr.html</a>
+<p>
+　参考リンク：<a href="http://www.alles.or.jp/~noric/develop/" target=_blank>
+OCR等で読み込んだダンプリスト編集を支援する、秀丸のマクロファイル</a><br>
+　（by のりのりさん）<br>
+　<b>残念ながらリンク切れです</b>
+<hr>
+<a name="qdcopy"></a>
+<H2>ＱＤファイル名にコントロールコードが含まれている場合の読み込み方法</H2>
+
+<a href="http://terumix.messages.to/" target="_blank">てるみつ工業</a>さん提供のＭＺ－１５００用プログラムを使用します。<p>
+
+１．以下のダンプリストを入力して、ＱＤやカセットにセーブする。<p>
+<pre>
+1000  00 00 00 CD 06 00 CD 3E  00 11 40 10 DF CD 7A EF 
+1010  CD B5 EF DA BB F2 CD 16  ED CD 18 F3 11 FB EE DF 
+1020  CD 85 EF 11 F1 10 DF 21  00 12 22 32 11 2A 04 11 
+1030  22 34 11 C3 B0 10 00 00  00 00 00 00 00 00 00 00 
+1040  20 FA FA 20 53 05 55 5A  55 4B 49 05 20 43 05 4F 
+1050  50 59 20 53 59 53 54 45  4D 05 20 FA FA 0D 5F 20 
+1060  53 54 41 52 54 20 41 44  44 52 0D 5F 20 45 58 45 
+1070  43 20 20 41 44 44 52 0D  5F 20 42 59 54 45 20 20 
+1180  53 49 5A 45 20 2E 0D 0D  2A 06 11 CD FA 05 11 5E 
+1190  10 DF 2A 08 11 CD FA 05  11 6B 10 DF 2A 04 11 CD 
+11A0  FA 05 11 78 10 DF C3 F1  F1 00 00 00 00 00 00 00 
+11B0  21 03 01 22 30 11 CD 0D  E8 DA BB F2 3A F0 10 FE 
+11C0  01 CA 88 10 C3 F1 F1 00  
+
+top  addr=1000H
+end  addr=10C7H
+exec addr=1000H
+file name=QDCOPY
+</pre>
+<p>
+
+２．1000番地から実行するとファイルネームを聞いてくるが、何も入力せずに［ＣＲ］キーのみ入力すると、<br>
+　　ＱＤの先頭のファイルが読み込まれる。その際には、先頭アドレス、実行アドレス、ファイルサイズも表示される。<br>
+　　あとは通常のＱＣコマンドと同じ。
+<p>
+
+３．ＱＤからファイルを読み終えた後で（Ｙ／Ｎ）を聞いてくるので、Ｎを押すとプロンプトに戻る。<br>
+　　ファイルは必ず1200Hから読み込まれているので、表示されているファイルサイズを参考に、<br>
+　　アドレスの範囲を求めてカセットにセーブし、tapeloadでＰＣに読み込んだあと、バイナリエディタで<br>
+　　ヘッダを本来のアドレスに書き直す事により、mz700winでも動作するバイナリを得る事ができる。
+
+<hr>
+<a name="poibos"></a>
+<H2>”ポイボス　Part1 脱出”のマシン語ファイル化方法</H2>
+アベカツ (<a href="mailto:abe@solid.pe.titech.ac.jp">abe@solid.pe.titech.ac.jp</a>)さんからの情報です。<p>
+
+１．ゲ－ムを起動する。<p>
+２．ポイボスのテープを巻き戻しておく。<p>
+３．”データヲヨミコミマスカ”でYES<p>
+４．データロード画面でSHIFT+BREAK<p>
+５．MONコマンドでBASICモニターに入る。<p>
+６．Mコマンドで以下を入力。<br>
+　　8900:01 09 00 11 74 10 21 12 89 ED B0 D3 E0 D3 E1 C3<br>
+　　8910:A2 22 FF 06 47 2E 35 30 31 30 0D<p>
+７．セーブ用ノーマルテープを用意し、カウント120まで早送りしておく。<p>
+８．S1200 CFFF 8900:任意のファイルネームでセーブ。<p>
+９．テープを巻き戻した後、クリーニングテープ部分を送っておく。<p>
+10．T0000 0FFF 9000でブロック転送。<p>
+11．TD000 FEFF A000でブロック転送。<p>
+12．リセット（1500の人はMを押しながら）<p>
+13．Mコマンドで以下を入力。<br>
+　　CF00:CD 27 00 11 00 80 ED 53 04 11 CD 2A 00 C3 AD 00（700用）<br>
+　　CF00:CD 27 00 11 00 80 ED 53 04 11 CD 2A 00 C3 04 E8（1500用）<p>
+14．ポイボスのテープをセットし、カウント50まで早送り。<p>
+15．JCF00でテープロード。<p>
+16．ロード終了後、Mコマンドで以下を入力。<br>
+　　CF00:D3 E0 01 00 10 11 00 00 21 00 90 ED B0 D3 E1 01<br>
+　　CF10:00 2F 11 00 D0 21 00 A0 ED B0 D3 E4 01 00 10 11<br>
+　　CF20:00 D0 21 00 80 ED B0 CD 27 00 C3 18 01<p>
+17．セーブ用テープをセット。<p>
+18．FILENAME:任意,START:8000,END:CF2C,EXEC:CF00でセーブ。<p>
+19．テープを巻き戻してロード。10分くらいで立ち上がります。<p>
+
+<p>
+   以上、箇条書きしましたが、結局やっていることは、RAM:0000～0FFF,1200～FEFFと、
+   VRAM:D000～DFFFを復元しているだけです。<br>
+   ポイントはVRAMにマップなどのデータが読み込まれていることと、最終的な実行アドレスを
+22A2番地(STOPコマンド)に設定し、1074番地にコマンドを書き込むことで続けざまに
+"G.5010"を実行していることです。<br>
+こうしないと"OUT OF MEMORY"エラーが出てしまいます。<br>
+５年ほど前にMZ1500を手に入れたときから試してきたのですがうまくいかず、<br>
+結局、カウント50位にある"SCRN"というマシン語ファイルを、
+ロードの時に表示されるグラフィックデータだと思っていて無視していたのがいけなくて、
+実はこいつが同時にマップデータをVRAMに保管していたというわけです。<p>
+
+以下にポイボスの全ファイルを示します(カウントは適当）。<p>
+
+   0～ :"POIBOS1.1":BASIC:メッセージ表示＋マシン語ロード<br>
+   9～ :"":マシン語:NEW ON+R." 実行<br>
+   15～ :"":BASIC:ローダープログラム<br>
+   22～ :"POIBOS1.2":マシン語:VRAMローダー<br>
+   29～ :"SCRN":マシン語:タイトルグラフィック<br>
+   50～ :"SCRN":マシン語:グラフィック＋データ<br>
+   69～ :"POIBOS1.3":マシン語:デ－タ<br>
+   86～ :"POIBOS1.4":BASIC:メインプログラム<br>
+   157～ :"POIBOS1.5":シーケンシャル:データ
+   192～ :"LINE":シーケンシャル:リストの一部をデリート<br>
+
+<hr>
+<a name="hubas_save"></a>
+<H2>700用HuBASICプログラムのマシン語ファイル化方法</H2>
+アベカツ (<a href="mailto:abe@solid.pe.titech.ac.jp">abe@solid.pe.titech.ac.jp</a>)さんからの情報です。<p>
+700用HuBASICでは、プログラムのスタートアドレスを<b>888B,888C</b>番地に、
+同じくエンドアドレスを<b>887F,8880</b>番地に格納しています。<br>
+BASICプログラムをマシン語ファイル化するには、BASICごとそのエンドアドレスまでセーブすればよいわけです。
+もちろん、<b>0000～0FFF</b>、<b>D000～FEFF</b>は違うアドレスにセーブして転送する必要があります。<br>
+また、実行アドレスは、<b>1E86</b>(RUN),<b>22A2</b>(STOP),<b>2405</b>(END)のいずれかにしておけばよいと思います。
+<hr>
+
+<a name="furuconv"></a>
+<H2>古旗一浩氏が公開されている700用バイナリデータを<br>mz700win用に変換するツール</H2>
+たあいえ さんからのご提供です。<p>
+<a href="./arc/furuconv.zip">ここ</a>からダウンロード出来ます。
+<hr>
+
+<P><B><A HREF="http://retropc.net/mz-memories/mz700/">＜＜＜＜MZ700WINページに戻る</A></B>
+<p>
+
+<CENTER>このページについてご意見ご希望等ありましたら、 <a href="http://marukun.org/mailform.html">こちらのフォーム</A>
+からどうぞ。</CENTER>
+
+</BODY>
+</HTML>
