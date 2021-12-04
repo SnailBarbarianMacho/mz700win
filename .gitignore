@@ -8,6 +8,7 @@ Release/*.pdb
 Release/*.res
 Release/*.recipe
 Release/*.FileListAbsolute.txt
+Release/*.exe
 Release/ROMS/*.ROM
 *.user
 *.aps
