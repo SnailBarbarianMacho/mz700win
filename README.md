@@ -8,7 +8,7 @@
   MZ700 emulator 'mz700em' for VGA PCs running Linux (C) 1996 Russell Marks.
 - Z80 emulation from 'Z80em' Copyright (C) Marcel de Kogel 1996,1997
 
-# てっとりばやく動かしたいなら
+# Binary, Documents and Tools
 
 - バイナリ, README.txt は, Release フォルダにあります<br>
   古いドキュメントもそのまま掲載してます. 使用方法はそちらをご覧ください.<br>
@@ -51,6 +51,6 @@
   I'm building with VS2022 Community. <br>
    Workload requires "Desktop Development in C ++" and "Game Development in C ++"
 
-# license
+# License
 
 - MIT
