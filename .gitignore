@@ -1,7 +1,7 @@
 .git/
 Debug/
 Release/mz700win.tlog/
-Release/*.obj
+Release/mz700win/
 Release/*.exe.receipe
 Release/*.log
 Release/*.pdb
@@ -13,6 +13,10 @@ Release/ROMS/*.ROM
 *.user
 *.aps
 *.*~
+*.mzt
+*.data
+*.obj
+*.iobj
 .vs/
 src_backup/
 debug.log

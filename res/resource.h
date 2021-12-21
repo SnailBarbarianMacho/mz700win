@@ -58,5 +58,4 @@
 #define IDC_STATIC_SPD                  3003
 #define IDC_STATIC                      -1
 
-
 #define VERSIONINFO_1	1

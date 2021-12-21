@@ -18,6 +18,7 @@
 #include <commctrl.h>
 #include <mmsystem.h>
 #include "resource.h"
+#include "resrc1.h"
 
 #include "mz700win.h"
 #include "Z80.h"
@@ -1115,8 +1116,35 @@ BOOL CALLBACK AppSpeedDialog(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
 	switch (msg){
 	  case WM_COMMAND:
 		switch (wp) {
-			// OKボタン
-		  case IDOK:
+		case IDC_10:
+			SendMessage(hSld, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)10);
+			set_spd_text(10);
+			break;
+		case IDC_50:
+			SendMessage(hSld, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)50);
+			set_spd_text(50);
+			break;
+		case IDC_100:
+			SendMessage(hSld, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)100);
+			set_spd_text(100);
+			break;
+		case IDC_200:
+			SendMessage(hSld, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)200);
+			set_spd_text(200);
+			break;
+		case IDC_400:
+			SendMessage(hSld, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)400);
+			set_spd_text(400);
+			break;
+		case IDC_800:
+			SendMessage(hSld, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)800);
+			set_spd_text(800);
+			break;
+		case IDC_1600:
+			SendMessage(hSld, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)1600);
+			set_spd_text(1600);
+			break;
+        case IDOK:// OKボタン
 			// 実行速度を反映
 			menu.speed = (int)SendMessage( hSld, TBM_GETPOS, 0, 0);
 			// Z80コアに速度を反映
@@ -1160,11 +1188,11 @@ BOOL CALLBACK AppSpeedDialog(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
 		}
 		/*  スライダの初期設定 */
 		hSld = GetDlgItem( hwnd, IDC_SLIDER1 );
-		SendMessage( hSld, TBM_SETRANGE, (WPARAM)TRUE, (LPARAM)MAKELPARAM(10, 200) );    //  範囲は [0, 255]
-		SendMessage( hSld, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)menu.speed );    //  スライダの初期位置は speed
-		SendMessage( hSld, TBM_SETTICFREQ, (WPARAM)10, (LPARAM)0 );    //  メモリの間隔は 10
+		SendMessage(hSld, TBM_SETRANGE, (WPARAM)TRUE, (LPARAM)MAKELPARAM(10, 1600) ); //  範囲設定
+		SendMessage(hSld, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)menu.speed);    //  スライダの初期位置は speed
+		SendMessage(hSld, TBM_SETTICFREQ, (WPARAM)50, (LPARAM)0 );    //  メモリの間隔は 50
 		set_spd_text(menu.speed);										// Static Text (SPEED) 反映
-		
+
 		return TRUE;
 	}
 	return FALSE;

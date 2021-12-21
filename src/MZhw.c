@@ -631,6 +631,11 @@ void playPSG(void)
 unsigned Z80_RDMEM(dword x)
 {
 	int page = x >> 11;
+#ifdef _DEBUG
+	if (32 <= page) {
+		_ASSERT(FALSE);
+	}
+#endif
 	int attr = hw700.memctrl[page].attr;
 
 	if (!attr)
@@ -652,7 +657,11 @@ unsigned Z80_RDMEM(dword x)
 void Z80_WRMEM(dword x, dword y)
 {
 	unsigned int page = x >> 11;
-		  
+#ifdef _DEBUG
+	if (32 <= page) {
+		_ASSERT(FALSE);
+	}
+#endif		  
 	int attr = hw700.memctrl[page].attr;
 		  
 	if(attr&2) mmio_out(x,y);

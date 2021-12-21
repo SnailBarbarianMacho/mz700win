@@ -1,4 +1,4 @@
-MZ700WIN version 0.58
+
 
 Coded by Marukun, Youkan, Snail
 
@@ -9,9 +9,15 @@ Coded by Marukun, Youkan, Snail
 - based on Russell Marks's 'mz700em'.<br>
   MZ700 emulator 'mz700em' for VGA PCs running Linux (C) 1996 Russell Marks.
 - Z80 emulation from 'Z80em' Copyright (C) Marcel de Kogel 1996,1997
+- エミュレーション精度向上によるパフォーマンス低下が気になる場合は, z80.h の Z80_EMU_XY を undef してビルドしてください.
+  If you are concerned about performance degradation due to improved emulation accuracy, undef Z80_EMU_XY in z80.h and build it. 
 
 
-
+2021.12.23 0.58 beta2(Snail)
+- Z80 エミュレーション精度を MAME 並に向上しました<br>
+  Z80 emulation accuracy has been improved to the same level as MAME.
+- "Speed Control" は 1600% まで対応しました<br>
+  "Speed Control" up to 1600%.
 
 2021.12.04 0.58 beta1(Snail)
 - Based on 0.56

@@ -774,16 +774,16 @@ void rdinf_job(Z80_Regs *Regs, int mode)
 	{
 	case CPAT_ROM:
 		// ROM MONITOR
-		CopyMemory(mem+RAM_START+L_IBUFE, rdinf_buf, 0x80);
+        CopyMemory(mem + RAM_START + L_IBUFE, rdinf_buf, 0x80);
 		break;
-	case CPAT_RAM_1Z007B:
-		// S-BASIC 1Z-007B
-		CopyMemory(mem+RAM_START+Regs->HL.D, rdinf_buf, 0x80);
-		break;
-	case CPAT_RAM_HUBASIC:
-		// HuBASIC 2.0
-		CopyMemory(mem+RAM_START+Regs->HL.D, rdinf_buf, 0x80);
-		break;
+    case CPAT_RAM_1Z007B:
+        // S-BASIC 1Z-007B
+        CopyMemory(mem + RAM_START + Regs->HL.W.l, rdinf_buf, 0x80);
+        break;
+    case CPAT_RAM_HUBASIC:
+        // HuBASIC 2.0
+        CopyMemory(mem + RAM_START + Regs->HL.W.l, rdinf_buf, 0x80);
+        break;
 	}
 	tapepos+=128;
 	
@@ -820,14 +820,14 @@ void rddata_job(Z80_Regs *Regs, int mode)
 
 	case CPAT_RAM_1Z007B:
 		//	S-BASIC 1Z-007B
-		inf_start = Regs->HL.D;
-		inf_len = Regs->BC.D;
+		inf_start = Regs->HL.W.l;
+		inf_len = Regs->BC.W.l;
 		break;
 
 	case CPAT_RAM_HUBASIC:
 		// HuBASIC
-		inf_start = Regs->HL.D;
-		inf_len = Regs->BC.D;
+		inf_start = Regs->HL.W.l;
+		inf_len = Regs->BC.W.l;
 		break;
 	}
 
@@ -901,13 +901,13 @@ void wrinf_job(Z80_Regs *Regs, int mode)
 		switch (mode)
 		{
 		case CPAT_ROM:
-			CopyMemory(buf, mem+RAM_START+L_IBUFE, 0x80);
+            CopyMemory(buf, mem + RAM_START + L_IBUFE, 0x80);
 			break;
 		case CPAT_RAM_1Z007B:
-			CopyMemory(buf, mem+RAM_START+Regs->HL.D, 0x80);
+            CopyMemory(buf, mem + RAM_START + Regs->HL.W.l, 0x80);
 			break;
 		case CPAT_RAM_HUBASIC:
-			CopyMemory(buf, mem+RAM_START+Regs->HL.D, 0x80);
+            CopyMemory(buf, mem + RAM_START + Regs->HL.W.l, 0x80);
 			break;
 		}
 
@@ -948,13 +948,13 @@ void wrdata_job(Z80_Regs *Regs, int mode)
 		break;
 	case CPAT_RAM_1Z007B:
 		// S-BASIC 1Z-007B
-		inf_start = Regs->HL.D;
-		inf_len  = len = Regs->BC.D;
+		inf_start = Regs->HL.W.l;
+		inf_len  = len = Regs->BC.W.l;
 		break;
 	case CPAT_RAM_HUBASIC:
 		// HuBASIC
-		inf_start = Regs->HL.D;
-		inf_len  = len = Regs->BC.D;
+		inf_start = Regs->HL.W.l;
+		inf_len  = len = Regs->BC.W.l;
 		break;
 	}
 	addr = inf_start;
@@ -1120,9 +1120,9 @@ void em_qkey(Z80_Regs *Regs)
 	byte sf,md;
 	word bc_bak,de_bak,hl_bak;
 
-	bc_bak = Regs->BC.D;
-	de_bak = Regs->DE.D;
-	hl_bak = Regs->HL.D;
+	bc_bak = Regs->BC.W.l;
+	de_bak = Regs->DE.W.l;
+	hl_bak = Regs->HL.W.l;
 
 	Z80_set_carry(Regs,0);		// CARRY CLR
 	em_qswep(Regs);
@@ -1134,18 +1134,18 @@ void em_qkey(Z80_Regs *Regs)
 	if (!(sf & 0x80))				// NO KEY
 	{
 		Regs->AF.B.h = 0xF0;
-		Regs->BC.D = bc_bak;
-		Regs->DE.D = de_bak;
-		Regs->HL.D = hl_bak;
+		Regs->BC.W.l = bc_bak;
+		Regs->DE.W.l = de_bak;
+		Regs->HL.W.l = hl_bak;
 		return;
 	}
 
 	if (sf == 0x88)					// SHIFT & BRK
 	{
 		Regs->AF.B.h = 0xCB;		// BREAK CODE
-		Regs->BC.D = bc_bak;
-		Regs->DE.D = de_bak;
-		Regs->HL.D = hl_bak;
+		Regs->BC.W.l = bc_bak;
+		Regs->DE.W.l = de_bak;
+		Regs->HL.W.l = hl_bak;
 		return;
 	}
 
@@ -1194,9 +1194,9 @@ void em_qkey(Z80_Regs *Regs)
 
 	}
 
-	Regs->BC.D = bc_bak;
-	Regs->DE.D = de_bak;
-	Regs->HL.D = hl_bak;
+	Regs->BC.W.l = bc_bak;
+	Regs->DE.W.l = de_bak;
+	Regs->HL.W.l = hl_bak;
 }
 
 void MON_qkey(Z80_Regs *Regs)
@@ -1451,17 +1451,17 @@ void em_qdsp(Z80_Regs *Regs)
 	byte val,a,sml;
 
 	// KEEP Regs
-	af = Regs->AF.D;
-	bc = Regs->BC.D;
-	de = Regs->DE.D;
-	hl = Regs->HL.D;
+	af = Regs->AF.W.l;
+	bc = Regs->BC.W.l;
+	de = Regs->DE.W.l;
+	hl = Regs->HL.W.l;
 
 	//
 	em_qpont(Regs);
 
 	sml = 0;
 
-	vrm = Regs->HL.D;
+	vrm = Regs->HL.W.l;
 	if (Regs->AF.B.h == 0xF5)		// small/large
 	{
 		x = Z80_RDMEM(L_SWRK);
@@ -1470,10 +1470,10 @@ void em_qdsp(Z80_Regs *Regs)
 		Z80_WRMEM(L_SWRK, x);
 
 		// Restore Regs
-		Regs->AF.D = af;
-		Regs->BC.D = bc;
-		Regs->DE.D = de;
-		Regs->HL.D = hl;
+		Regs->AF.W.l = af;
+		Regs->BC.W.l = bc;
+		Regs->DE.W.l = de;
+		Regs->HL.W.l = hl;
 		return;
 	}
 
@@ -1506,10 +1506,10 @@ void em_qdsp(Z80_Regs *Regs)
 	em_qdpct(Regs);
 
 	// Restore Regs
-	Regs->AF.D = af;
-	Regs->BC.D = bc;
-	Regs->DE.D = de;
-	Regs->HL.D = hl;
+	Regs->AF.W.l = af;
+	Regs->BC.W.l = bc;
+	Regs->DE.W.l = de;
+	Regs->HL.W.l = hl;
 }
 
 void MON_qdsp(Z80_Regs *Regs)
@@ -1527,13 +1527,13 @@ void em_qprnt(Z80_Regs *Regs)
 	word wk;
 	byte v;
 
-	wk = Regs->BC.D;
+	wk = Regs->BC.W.l;
 
 	v = Regs->AF.B.h;
 	if (v == 0x0D)
 	{
 		em_qltnl(Regs);
-		Regs->BC.D = wk;
+		Regs->BC.W.l = wk;
 		return;
 	}
 
@@ -1544,7 +1544,7 @@ void em_qprnt(Z80_Regs *Regs)
 
 	Regs->AF.B.h = Regs->BC.B.h;
 
-	Regs->BC.D = wk;
+	Regs->BC.W.l = wk;
 }
 
 void MON_qprnt(Z80_Regs *Regs)
@@ -1715,23 +1715,23 @@ void em_qmsg(Z80_Regs *Regs)
 	word af_bak,bc_bak,de_bak;
 	byte val;
 
-	af_bak = Regs->AF.D;
-	bc_bak = Regs->BC.D;
-	de_bak = Regs->DE.D;
+	af_bak = Regs->AF.W.l;
+	bc_bak = Regs->BC.W.l;
+	de_bak = Regs->DE.W.l;
 
 	for (;;)
 	{
-		val = Z80_RDMEM(Regs->DE.D);
+		val = Z80_RDMEM(Regs->DE.W.l);
 		if (val == 0x0D) break;
 
 		Regs->AF.B.h = val;
 		em_qprnt(Regs);
 
-		Regs->DE.D++;
+		Regs->DE.W.l++;
 	}
-	Regs->DE.D = de_bak;
-	Regs->BC.D = bc_bak;
-	Regs->AF.D = af_bak;
+	Regs->DE.W.l = de_bak;
+	Regs->BC.W.l = bc_bak;
+	Regs->AF.W.l = af_bak;
 }
 
 void MON_qmsg(Z80_Regs *Regs)
@@ -1747,12 +1747,12 @@ void em_qmsgx(Z80_Regs *Regs)
 	word af_bak,bc_bak,de_bak;
 	byte val;
 
-	af_bak = Regs->AF.D;
-	bc_bak = Regs->BC.D;
-	de_bak = Regs->DE.D;
+	af_bak = Regs->AF.W.l;
+	bc_bak = Regs->BC.W.l;
+	de_bak = Regs->DE.W.l;
 	for (;;)
 	{
-		val = Z80_RDMEM(Regs->DE.D);
+		val = Z80_RDMEM(Regs->DE.W.l);
 		if (val == 0x0D) break;
 
 		Regs->AF.B.h = val;
@@ -1765,11 +1765,11 @@ void em_qmsgx(Z80_Regs *Regs)
 			val = 0;
 		Z80_WRMEM(L_DPRNT, val);
 
-		Regs->DE.D++;
+		Regs->DE.W.l++;
 	}
-	Regs->DE.D = de_bak;
-	Regs->BC.D = bc_bak;
-	Regs->AF.D = af_bak;
+	Regs->DE.W.l = de_bak;
+	Regs->BC.W.l = bc_bak;
+	Regs->AF.W.l = af_bak;
 
 }
 
@@ -1935,10 +1935,10 @@ int pem_gethex(Z80_Regs *Regs, int b)
 	int val;
 	int res = 0;
 
-	for (i=0;i<b;i++)
+    for (i = 0; i < b; i++)
 	{
 		res <<= 4;
-		val = (int) Z80_RDMEM(Regs->DE.D++);
+		val = (int) Z80_RDMEM(Regs->DE.W.l++);
 		if ( ((val >= '0') && (val <='9')) |
 			 ((val >= 'A') && (val <='F')) )
 		{
@@ -1974,9 +1974,9 @@ void em_hlhex(Z80_Regs *Regs)
 {
 	word de_bak;
 
-	de_bak = Regs->DE.D;
-	Regs->HL.D = (dword) pem_gethex(Regs, 4);
-	Regs->DE.D = de_bak;
+	de_bak = Regs->DE.W.l;
+	Regs->HL.W.l = (dword) pem_gethex(Regs, 4);
+	Regs->DE.W.l = de_bak;
 }
 
 void MON_hlhex(Z80_Regs *Regs)
@@ -2008,11 +2008,11 @@ void em_prthx(Z80_Regs *Regs)
 {
 	word af_bak;
 
-	af_bak = Regs->AF.D;
+	af_bak = Regs->AF.W.l;
 	Regs->AF.B.h >>=4;
 	em_asc(Regs);
 	em_qprnt(Regs);
-	Regs->AF.D = af_bak;
+	Regs->AF.W.l = af_bak;
 
 	em_asc(Regs);
 	em_qprnt(Regs);
@@ -2043,9 +2043,9 @@ void MON_prthl(Z80_Regs *Regs)
 void em_sphex(Z80_Regs *Regs)
 {
 	em_qprts(Regs);
-	Regs->AF.B.h = Z80_RDMEM(Regs->HL.D);
+	Regs->AF.B.h = Z80_RDMEM(Regs->HL.W.l);
 	em_prthx(Regs);
-	Regs->AF.B.h = Z80_RDMEM(Regs->HL.D);
+	Regs->AF.B.h = Z80_RDMEM(Regs->HL.W.l);
 }
 
 void MON_sphex(Z80_Regs *Regs)
@@ -2077,16 +2077,16 @@ void em_qsave(Z80_Regs *Regs)
 	Z80_WRMEM(L_FLSDT, flsdt);
 
 	em_qpont(Regs);
-	val = Z80_RDMEM(Regs->HL.D);
+	val = Z80_RDMEM(Regs->HL.W.l);
 	Z80_WRMEM(L_FLASH, val);
 
-	Z80_WRMEM(Regs->HL.D, flsdt);		// Write CURSOR
+	Z80_WRMEM(Regs->HL.W.l, flsdt);		// Write CURSOR
 
 	Z80_WRMEM(0xE000, 0x00);
 	Z80_WRMEM(0xE000, 0xFF);
 
 	Regs->AF.B.h = 0xFF;
-	Regs->HL.D = 0xE000;
+	Regs->HL.W.l = 0xE000;
 
 }
 
@@ -2104,13 +2104,13 @@ void em_qload(Z80_Regs *Regs)
 	word af_bak;
 	byte val;
 
-	af_bak = Regs->AF.D;
+	af_bak = Regs->AF.W.l;
 
 	val = Z80_RDMEM(L_FLASH);
 	em_qpont(Regs);
-	Z80_WRMEM(Regs->HL.D, val);
+	Z80_WRMEM(Regs->HL.W.l, val);
 
-	Regs->AF.D = af_bak;
+	Regs->AF.W.l = af_bak;
 }
 
 void MON_qload(Z80_Regs *Regs)
@@ -2127,7 +2127,7 @@ void em_qfls(Z80_Regs *Regs)
 	word hl_bak;
 	byte val,flsdt;
 
-	hl_bak = Regs->HL.D;
+	hl_bak = Regs->HL.W.l;
 
 	val = Z80_RDMEM(MIO_KEYPC);
 	if (val & 0x40)
@@ -2140,9 +2140,9 @@ void em_qfls(Z80_Regs *Regs)
 	}
 
 	em_qpont(Regs);
-	Z80_WRMEM(Regs->HL.D, flsdt);
+	Z80_WRMEM(Regs->HL.W.l, flsdt);
 
-	Regs->HL.D = hl_bak;
+	Regs->HL.W.l = hl_bak;
 }
 
 void MON_qfls(Z80_Regs *Regs)
@@ -2181,8 +2181,8 @@ void em_qqkey(Z80_Regs *Regs)
 {
 	word af_bak,hl_bak;
 
-	hl_bak = Regs->HL.D;
-	af_bak = Regs->AF.D;
+	hl_bak = Regs->HL.W.l;
+	af_bak = Regs->AF.W.l;
 
 	em_qsave(Regs);
 	em_flkey(Regs);
@@ -2194,8 +2194,8 @@ void em_qqkey(Z80_Regs *Regs)
 	Z80_set_zero(Regs, (Regs->AF.B.h == 0xF0));
 	Z80_set_carry(Regs, (Regs->AF.B.h < 0xF0));
 
-	Regs->HL.D = hl_bak;
-	Regs->AF.D = af_bak;
+	Regs->HL.W.l = hl_bak;
+	Regs->AF.W.l = af_bak;
 }
 
 void MON_qqkey(Z80_Regs *Regs)
@@ -2212,7 +2212,7 @@ void em_qcler(Z80_Regs *Regs, int val)
 	lp = (int) Regs->BC.B.h;
 	for (i=0;i<lp;i++)
 	{
-		Z80_WRMEM(Regs->HL.D++,val);
+		Z80_WRMEM(Regs->HL.W.l++,val);
 	}
 
 	Regs->AF.B.h = 0;
@@ -2240,15 +2240,15 @@ void em_dsp03(Z80_Regs *Regs)
 	word wk;
 	byte val,c;
 
-	val = Z80_RDMEM(Regs->HL.D);
+	val = Z80_RDMEM(Regs->HL.W.l);
 	c = (val & 0x80) ? 1 : 0;
 	val <<=1;
 	Regs->BC.B.h = val | c;
 	Z80_set_carry(Regs,c);
 
-	wk = Regs->HL.D;
-	Regs->HL.D = Regs->DE.D;
-	Regs->DE.D = wk;
+	wk = Regs->HL.W.l;
+	Regs->HL.W.l = Regs->DE.W.l;
+	Regs->DE.W.l = wk;
 
 	Regs->AF.B.h = 0;
 }

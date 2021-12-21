@@ -207,130 +207,130 @@ static int Abs (unsigned char a)
 /****************************************************************************/
 /* Disassemble first opcode in buffer and return number of bytes it takes   */
 /****************************************************************************/
-static int Z80_Dasm (unsigned char *buffer,char *dest,unsigned PC)
+static int Z80_Dasm (unsigned char *buffer,char *dest, size_t szDest, unsigned PC)
 {
- char *S;
- char *r;
- int i,j,k;
- unsigned char buf[10];
- char Offset;
- i=Offset=0;
- r="INTERNAL PROGRAM ERROR";
- dest[0]='\0';
- switch (buffer[i])
- {
-  case 0xCB:
-   i++;
-   S=mnemonic_cb[buffer[i++]];
-   break;
-  case 0xED:
-   i++;
-   S=mnemonic_ed[buffer[i++]];
-   break;
-  case 0xDD:
-   i++;
-   r="ix";
-   switch (buffer[i])
-   {
-    case 0xcb:
-     i++;
-     Offset=buffer[i++];
-     S=mnemonic_xx_cb[buffer[i++]];
-     break;
+    char* S;
+    char* r;
+    int i, j, k;
+    unsigned char buf[10];
+    char Offset;
+    i = Offset = 0;
+    r = "INTERNAL PROGRAM ERROR";
+    dest[0] = '\0';
+    switch (buffer[i])
+    {
+    case 0xCB:
+        i++;
+        S = mnemonic_cb[buffer[i++]];
+        break;
+    case 0xED:
+        i++;
+        S = mnemonic_ed[buffer[i++]];
+        break;
+    case 0xDD:
+        i++;
+        r = "ix";
+        switch (buffer[i])
+        {
+        case 0xcb:
+            i++;
+            Offset = buffer[i++];
+            S = mnemonic_xx_cb[buffer[i++]];
+            break;
+        default:
+            S = mnemonic_xx[buffer[i++]];
+            break;
+        }
+        break;
+    case 0xFD:
+        i++;
+        r = "iy";
+        switch (buffer[i])
+        {
+        case 0xcb:
+            i++;
+            Offset = buffer[i++];
+            S = mnemonic_xx_cb[buffer[i++]];
+            break;
+        default:
+            S = mnemonic_xx[buffer[i++]];
+            break;
+        }
+        break;
     default:
-     S=mnemonic_xx[buffer[i++]];
-     break;
-   }
-   break;
-  case 0xFD:
-   i++;
-   r="iy";
-   switch (buffer[i])
-   {
-    case 0xcb:
-     i++;
-     Offset=buffer[i++];
-     S=mnemonic_xx_cb[buffer[i++]];
-     break;
-    default:
-     S=mnemonic_xx[buffer[i++]];
-     break;
-   }
-   break;
-  default:
-   S=mnemonic_main[buffer[i++]];
-   break;
- }
- for (j=0;S[j];++j)
- {
-  switch (S[j])
-  {
-   case 'B':
-    sprintf (buf,"$%02x",buffer[i++]);
-    strcat (dest,buf);
-    break;
-   case 'R':
-    sprintf (buf,"$%04x",(PC+2+(signed char)buffer[i])&0xFFFF);
-    i++;
-    strcat (dest,buf);
-    break;
-   case 'W':
-    sprintf (buf,"$%04x",buffer[i]+buffer[i+1]*256);
-    i+=2;
-    strcat (dest,buf);
-    break;
-   case 'X':
-    sprintf (buf,"(%s%c$%02x)",r,Sign(buffer[i]),Abs(buffer[i]));
-    i++;
-    strcat (dest,buf);
-    break;
-   case 'Y':
-    sprintf (buf,"(%s%c$%02x)",r,Sign(Offset),Abs(Offset));
-    strcat (dest,buf);
-    break;
-   case 'I':
-    strcat (dest,r);
-    break;
-   case '!':
-    sprintf (dest,"db     $ed,$%02x",buffer[1]);
-    return 2;
-   case '@':
-    sprintf (dest,"db     $%02x",buffer[0]);
-    return 1;
-   case '#':
-    sprintf (dest,"db     $%02x,$cb,$%02x",buffer[0],buffer[2]);
-    return 2;
-   case ' ':
-    k=strlen(dest);
-    if (k<6) k=7-k;
-    else k=1;
-    memset (buf,' ',k);
-    buf[k]='\0';
-    strcat (dest,buf);
-    break;
-   default:
-    buf[0]=S[j];
-    buf[1]='\0';
-    strcat (dest,buf);
-    break;
-  }
- }
- return i;
+        S = mnemonic_main[buffer[i++]];
+        break;
+    }
+    for (j = 0; S[j]; ++j)
+    {
+        switch (S[j])
+        {
+        case 'B':
+            sprintf_s(buf, sizeof(buf), "$%02x", buffer[i++]);
+            strcat_s(dest, szDest, buf);
+            break;
+        case 'R':
+            sprintf_s(buf, sizeof(buf), "$%04x", (PC + 2 + (signed char)buffer[i]) & 0xFFFF);
+            i++;
+            strcat_s(dest, szDest, buf);
+            break;
+        case 'W':
+            sprintf_s(buf, sizeof(buf), "$%04x", buffer[i] + buffer[i + 1] * 256);
+            i += 2;
+            strcat_s(dest, szDest, buf);
+            break;
+        case 'X':
+            sprintf_s(buf, sizeof(buf), "(%s%c$%02x)", r, Sign(buffer[i]), Abs(buffer[i]));
+            i++;
+            strcat_s(dest, szDest, buf);
+            break;
+        case 'Y':
+            sprintf_s(buf, sizeof(buf), "(%s%c$%02x)", r, Sign(Offset), Abs(Offset));
+            strcat_s(dest, szDest, buf);
+            break;
+        case 'I':
+            strcat_s(dest, szDest, r);
+            break;
+        case '!':
+            sprintf_s(dest, sizeof(buf), "db     $ed,$%02x", buffer[1]);
+            return 2;
+        case '@':
+            sprintf_s(dest, sizeof(buf), "db     $%02x", buffer[0]);
+            return 1;
+        case '#':
+            sprintf_s(dest, sizeof(buf), "db     $%02x,$cb,$%02x", buffer[0], buffer[2]);
+            return 2;
+        case ' ':
+            k = strlen(dest);
+            if (k < 6) k = 7 - k;
+            else k = 1;
+            memset(buf, ' ', k);
+            buf[k] = '\0';
+            strcat_s(dest, szDest, buf);
+            break;
+        default:
+            buf[0] = S[j];
+            buf[1] = '\0';
+            strcat_s(dest, szDest, buf);
+            break;
+        }
+    }
+    return i;
 }
 
 #ifdef TEST
 #include <stdlib.h>
 int main (int argc,char *argv[])
 {
- int i;
- unsigned char buffer[16];
- char dest[32];
- memset (buffer,0,sizeof(buffer));
- for (i=1;i<17 && i<argc;++i) buffer[i-1]=strtoul(argv[i],NULL,16);
- for (i=0;i<16;++i) printf ("%02X ",buffer[i]);
- printf ("\n");
- i=Z80_Dasm (buffer,dest,0);
- printf ("%s  - %d bytes\n",dest,i);
- return 0;
+    int i;
+    unsigned char buffer[16];
+    char dest[32];
+    memset(buffer, 0, sizeof(buffer));
+    for (i = 1; i < 17 && i < argc; ++i) buffer[i - 1] = strtoul(argv[i], NULL, 16);
+    for (i = 0; i < 16; ++i) printf("%02X ", buffer[i]);
+    printf("\n");
+    i = Z80_Dasm(buffer, dest, sizeof(dest), 0);
+    printf("%s  - %d bytes\n", dest, i);
+    return 0;
 }
 #endif

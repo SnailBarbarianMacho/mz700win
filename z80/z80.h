@@ -12,6 +12,18 @@
 #define _Z80_H
 
 /****************************************************************************/
+/*** Coding Rule                                                          ***/
+/****************************************************************************/
+// M_XXXX            macro
+// ihl, iix, iiy     indirect HL, IX, IY, memory. (HL), (IX+d), (IY+d), (nn)
+// MEM               memory
+
+/****************************************************************************/
+/*** If you don't need support X/Y flags and WZ reg, undef it             ***/
+/****************************************************************************/
+#define Z80_EMU_XY
+
+/****************************************************************************/
 /*** Machine dependent definitions                                        ***/
 /****************************************************************************/
 /* #define DEBUG      */              /* Compile debugging version          */
@@ -26,7 +38,8 @@
 #ifdef __BORLANDC__
 #define INLINE static
 #else
-#define INLINE _inline
+// If GCC, __attribute__((always_inline)) 
+#define INLINE __forceinline
 #endif
 
 #ifndef EMU_TYPES
@@ -40,6 +53,11 @@ typedef unsigned short word;
 typedef unsigned       dword;
 typedef signed char    offset;
 
+typedef unsigned char  u8;
+typedef signed   char  s8;
+typedef unsigned short u16;
+typedef unsigned int   u32;
+
 /****************************************************************************/
 /* Define a Z80 word. Upper bytes are always zero                           */
 /****************************************************************************/
@@ -50,32 +68,32 @@ typedef union
    struct { byte l,h,h2,h3,h4,h5,h6,h7,
                  h8,h9,h10,h11,h12,h13,h14,h15; } B;
    struct { word l,h,h2,h3,h4,h5,h6,h7; } W;
-   dword D;
+   //dword D;
  #else
    struct { byte h15,h14,h13,h12,h11,h10,h9,h8,
                  h7,h6,h5,h4,h3,h2,h,l; } B;
    struct { word h7,h6,h5,h4,h3,h2,h,l; } W;
-   dword D;
+   //dword D;
  #endif
 #elif __64BIT__
  #ifdef LSB_FIRST
    struct { byte l,h,h2,h3,h4,h5,h6,h7; } B;
    struct { word l,h,h2,h3; } W;
-   dword D;
+   //dword D;
  #else
    struct { byte h7,h6,h5,h4,h3,h2,h,l; } B;
    struct { word h3,h2,h,l; } W;
-   dword D;
+   //dword D;
  #endif
 #else
  #ifdef LSB_FIRST
    struct { byte l,h,h2,h3; } B;
    struct { word l,h; } W;
-   dword D;
+   //dword D;
  #else
    struct { byte h3,h2,h,l; } B;
    struct { word h,l; } W;
-   dword D;
+   //dword D;
  #endif
 #endif
 } pair;
@@ -98,15 +116,32 @@ typedef struct
 {
   pair AF,BC,DE,HL,IX,IY,PC,SP;
   pair AF2,BC2,DE2,HL2;
+#ifdef Z80_EMU_XY
+  pair WZ;
+#endif
   unsigned IFF1,IFF2,HALT,IM,I,R,R2;
 } Z80_Regs;
 
-#define S_FLAG          0x80
-#define Z_FLAG          0x40
-#define H_FLAG          0x10
-#define V_FLAG          0x04
-#define N_FLAG          0x02
-#define C_FLAG          0x01
+#define S_FLAG_SHIFT    7
+#define Z_FLAG_SHIFT    6
+#define H_FLAG_SHIFT    4
+#define V_FLAG_SHIFT    2
+#define N_FLAG_SHIFT    1
+#define C_FLAG_SHIFT    0
+
+#define S_FLAG          (1 << S_FLAG_SHIFT)
+#define Z_FLAG          (1 << Z_FLAG_SHIFT)
+#define H_FLAG          (1 << H_FLAG_SHIFT)
+#define V_FLAG          (1 << V_FLAG_SHIFT)
+#define N_FLAG          (1 << N_FLAG_SHIFT)
+#define C_FLAG          (1 << C_FLAG_SHIFT)
+
+#ifdef Z80_EMU_XY
+#define Y_FLAG_SHIFT    5
+#define X_FLAG_SHIFT    3
+#define Y_FLAG          (1 << Y_FLAG_SHIFT)
+#define X_FLAG          (1 << X_FLAG_SHIFT)
+#endif
 
 /****************************************************************************/
 /* Set Z80_Trace to 1 when PC==Z80_Trap. When trace is on, Z80_Debug() is   */
