@@ -149,13 +149,13 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "-"
             VALUE "FileDescription", "MZ-700/1500 Emulator For Win32"
-            VALUE "FileVersion", "0.5.8.beta2"
+            VALUE "FileVersion", "0.5.8"
             VALUE "InternalName", "mz700win"
             VALUE "LegalCopyright", "(C) 1998-2009 Marukun, 2009-2017 Marukun/Youkan, 2021 Marukun/Youkan/Snail"
             VALUE "LegalTrademarks", "-"
             VALUE "OriginalFilename", "MZ700WIN.EXE"
             VALUE "ProductName", "MZ700WIN"
-            VALUE "ProductVersion", "0.5.8.beta2"
+            VALUE "ProductVersion", "0.5.8"
         END
     END
     BLOCK "VarFileInfo"
@@ -179,7 +179,7 @@ BEGIN
     PUSHBUTTON      "OK",IDOK,66,108,54,18,BS_CENTER | BS_VCENTER
     LTEXT           "MZ-700 Emulator 'MZ700WIN'",53248,30,6,102,12,SS_CENTERIMAGE | NOT WS_GROUP
     ICON            "AppIcon",53253,6,12,20,20
-    LTEXT           "Version 0.58 beta2",IDC_TXT_VERSION,30,18,66,12,SS_CENTERIMAGE | NOT WS_GROUP
+    LTEXT           "Version 0.58",IDC_TXT_VERSION,30,18,66,12,SS_CENTERIMAGE | NOT WS_GROUP
     CONTROL         "",53260,"Static",SS_ETCHEDHORZ,30,30,144,1
     LTEXT           "Copyright (C) 1998-2021 Marukun/Youkan/Snail",53249,30,36,144,12,SS_CENTERIMAGE | NOT WS_GROUP
     LTEXT           "Based on Russell Marks's 'mz700em'",53250,30,48,124,12,SS_CENTERIMAGE | NOT WS_GROUP

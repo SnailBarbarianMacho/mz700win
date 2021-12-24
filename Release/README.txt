@@ -13,6 +13,12 @@ Coded by Marukun, Youkan, Snail
   If you are concerned about performance degradation due to improved emulation accuracy, undef Z80_EMU_XY in z80.h and build it. 
 
 
+2021.12.24 0.58
+- Z80 エミュレーション精度が少し向上しました<br>
+  Z80 emulation accuracy has improved a bit
+- 8253 のカウンタ 0 のモードをセットすると, 音は止まるようにしました<br>
+  The sound stops when the mode of counter 0 of 8253 is set.
+
 2021.12.23 0.58 beta2(Snail)
 - Z80 エミュレーション精度を MAME 並に向上しました<br>
   Z80 emulation accuracy has been improved to the same level as MAME.

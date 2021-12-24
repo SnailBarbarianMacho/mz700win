@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <crtdbg.h>
 
 #include "Z80.h"
 #include "mz700win.h"
@@ -65,7 +66,7 @@ typedef void (*opcode_fn) (void);
 #define M_PO    (!M_PE)
 
 #ifdef Z80_EMU_XY
-#define M_SET_WZ(val) do { R.WZ.W.l = val; } while (FALSE)
+#define M_SET_WZ(val) do { R.WZ.W.l = (val); } while (FALSE)
 #define M_SET_WZ_LH(lo, hi) do { R.WZ.B.l = lo; R.WZ.B.h = hi; } while (FALSE)
 #define M_XY_FLAG(val) (val & (X_FLAG | Y_FLAG))
 #else
@@ -548,6 +549,7 @@ static void pop_iy(void) { R.IY.W.l = pop(); }
 INLINE void out_ic_r(const byte data)
 {
     Z80_Out(R.BC.W.l, data);
+    M_SET_WZ(R.BC.W.l + 1);
 }
 
 static void out_ic_b(void) { out_ic_r(R.BC.B.h); }
@@ -557,7 +559,7 @@ static void out_ic_e(void) { out_ic_r(R.DE.B.l); }
 static void out_ic_h(void) { out_ic_r(R.HL.B.h); }
 static void out_ic_l(void) { out_ic_r(R.HL.B.l); }
 static void out_ic_0(void) { out_ic_r(0x00); }
-static void out_ic_a(void) { out_ic_r(R.AF.B.h); M_SET_WZ(R.BC.W.l + 1); }
+static void out_ic_a(void) { out_ic_r(R.AF.B.h); }
 
 static void out_inn_a(void) { 
     byte port = read_mem_opcode(); 
@@ -570,6 +572,7 @@ static void out_inn_a(void) {
 INLINE byte in_r_ic()
 {
     byte data = Z80_In(R.BC.W.l);
+    M_SET_WZ(R.BC.W.l + 1);
     R.AF.B.l =
         ZSPTable[data] |
         (0 & (H_FLAG | N_FLAG)) |
@@ -585,7 +588,7 @@ static void in_e_ic(void) { R.DE.B.l = in_r_ic(); }
 static void in_h_ic(void) { R.HL.B.h = in_r_ic(); }
 static void in_l_ic(void) { R.HL.B.l = in_r_ic(); }
 static void in_0_ic(void) {            in_r_ic(); }
-static void in_a_ic(void) { R.AF.B.h = in_r_ic(); M_SET_WZ(R.BC.W.l + 1); }
+static void in_a_ic(void) { R.AF.B.h = in_r_ic(); }
 
 static void in_a_inn(void) 
 { 
@@ -634,8 +637,9 @@ static void otdr(void) { outd(); if (R.BC.B.h) { M_CSTATE(5); R.PC.W.l -= 2; } }
 
 static void ini(void)
 {
-    M_SET_WZ(R.BC.W.l + 1);
     byte data = Z80_In(R.BC.W.l);
+    M_SET_WZ(R.BC.W.l + 1);
+    //dprintf("ini port:%04x data:%02x WZ:%04x\n", R.BC.W.l, data, R.WZ.W.l);
     --R.BC.B.h;
     M_WRMEM(R.HL.W.l, data);
     ++R.HL.W.l;
@@ -652,6 +656,7 @@ static void ind(void)
 {
     M_SET_WZ(R.BC.W.l - 1);
     byte data = Z80_In(R.BC.W.l);
+    //dprintf("ind port:%04x data:%02x WZ:%04x\n", R.BC.W.l, data, R.WZ.W.l);
     --R.BC.B.h;
     M_WRMEM(R.HL.W.l, data);
     --R.HL.W.l;

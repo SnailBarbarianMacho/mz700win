@@ -338,8 +338,13 @@ void write_8253_cw(int cw)
 
 	st = &_8253_stat[_8253_dat.sc];
 
+	// counter 0 のモードをセットしたら, カウンタが止まるので, 音も止まります. なげやり対応 Snail 2021.12.23
+	if (_8253_dat.sc == 0) {
+		mzbeep_stop();
+	}
+	
 //	if (_8253_dat.sc==2) st->counter_out = 0;								/* count#2,then clr */
-	st->counter_out = 0;								/* count clr */
+    st->counter_out = 0;								/* count clr */
 
 	/* カウンタ・ラッチ・オペレーション */
 	if (_8253_dat.rl==0)

@@ -35,6 +35,7 @@ typedef		unsigned char UINT8;
 #define PIO_TIMER_RESO 10
 
 #define VRAM_ACCESS_WAIT 42
+
 #define TEMPO_TSTATES ((CPU_SPEED*10)/381/2)
 #define VBLANK_TSTATES 45547	
 
