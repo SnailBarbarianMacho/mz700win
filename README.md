@@ -1,4 +1,4 @@
-# mz700win version 0.58 (beta2)
+# mz700win version 0.58
 
 - Coded by Marukun, Youkan, Snail
   - Marukun: [http://retropc.net/mz-memories/mz700/]
@@ -32,14 +32,14 @@
 0.57(Marukun)      0.58(Snail)
   |                   |
   :                   |
-0.56a(Youkan)         |
+0.56a(Marukun/Youkan) |
   |                   |
   +-------------------+
   |
-0.56(Youkan)
+0.56(Marukun/Youkan)
   |
   |
-0.55b(Youkan)
+0.55b(Marukun/Youkan)
   |
   :
   |
